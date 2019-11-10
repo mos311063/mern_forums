@@ -7,13 +7,13 @@ const ensureAuthenticated = (req, res, next) => {
 }
 
 const session = require('express-session')
-const web_token = session({
-  secret: 'coderAcademy',
+const session_setting = session({
+  secret: 'mosmos',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
 })
-
 module.exports = {
   ensureAuthenticated,
-  web_token
+  session_setting
 }

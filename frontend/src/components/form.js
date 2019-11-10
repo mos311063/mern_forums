@@ -46,7 +46,7 @@ const Form = props => (
               value={values.email}
               placeholder="email"
             />
-            <div style={{ position: 'absolute', bottom: -20 }}>
+            <div style={{ position: 'absolute', bottom: -38 }}>
               <small className="form-text text-muted">
                 {errors.email && touched.email && errors.email}
               </small>
@@ -62,7 +62,7 @@ const Form = props => (
               value={values.password}
               placeholder="password"
             />
-            <div style={{ position: 'absolute', bottom: -20 }}>
+            <div style={{ position: 'absolute', bottom: -38 }}>
               <small className="form-text text-muted">
                 {errors.password && touched.password && errors.password}
               </small>
