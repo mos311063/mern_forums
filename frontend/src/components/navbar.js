@@ -1,67 +1,67 @@
-import React, { Component } from 'react'
-import Form from './form.js'
-import UserLoader from './loader/userLoader.js'
-import UserBar from './userBar.js'
+import React, { Component } from "react";
+import Form from "./form.js";
+import UserLoader from "./loader/userLoader.js";
+import UserBar from "./userBar.js";
 
 export default class NavBar extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      search: '',
-      name: '',
-      id: '',
+      search: "",
+      name: "",
+      id: "",
       loading: false
-    }
-    this.searchPost = this.searchPost.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-    this.setUser = this.setUser.bind(this)
-    this.Logout = this.Logout.bind(this)
+    };
+    this.searchPost = this.searchPost.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.setUser = this.setUser.bind(this);
+    this.Logout = this.Logout.bind(this);
   }
 
   componentDidMount() {
-    this.setState({ loading: true })
-    let url = `http://localhost:3000/user/session`
+    this.setState({ loading: true });
+    let url = `https://polar-temple-62918.herokuapp.com/user/session`;
     fetch(url, {
-      method: 'POST',
-      credentials: 'include'
+      method: "POST",
+      credentials: "include"
     })
       .then(resp => {
-        return resp.json()
+        return resp.json();
       })
       .then(res => {
         this.setState(
           {
-            id: res.id || '',
-            name: res.name || '',
+            id: res.id || "",
+            name: res.name || "",
             loading: false
           },
           () => {
-            this.props.setUser(this.state.id)
+            this.props.setUser(this.state.id);
           }
-        )
-      })
+        );
+      });
   }
 
   searchPost(search) {
-    this.props.setSearch(search)
+    this.props.setSearch(search);
   }
   onSubmit(input) {
-    this.setState({ loading: true })
-    let url = `http://localhost:3000/user/login`
+    this.setState({ loading: true });
+    let url = `https://polar-temple-62918.herokuapp.com/user/login`;
     fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         email: input.email,
         password: input.password
       }),
-      credentials: 'include'
+      credentials: "include"
     })
       .then(resp => {
-        if (resp.status != 200) throw 'Email or password is not correct'
-        else return resp.json()
+        if (resp.status != 200) throw "Email or password is not correct";
+        else return resp.json();
       })
       .then(res => {
         this.setState(
@@ -71,32 +71,32 @@ export default class NavBar extends Component {
             loading: false
           },
           () => {
-            this.props.setUser(this.state.id)
+            this.props.setUser(this.state.id);
           }
-        )
+        );
       })
       .catch(err => {
-        alert(err)
-        this.setState({ loading: false })
-      })
+        alert(err);
+        this.setState({ loading: false });
+      });
   }
   Logout(event) {
-    event.preventDefault()
-    let url = `http://localhost:3000/user/logout`
+    event.preventDefault();
+    let url = `https://polar-temple-62918.herokuapp.com/user/logout`;
     fetch(url, {
-      method: 'POST',
-      credentials: 'include'
-    })
-    this.setState({ name: '', id: '' }, () => {
-      this.props.setUser(this.state.id)
-    })
+      method: "POST",
+      credentials: "include"
+    });
+    this.setState({ name: "", id: "" }, () => {
+      this.props.setUser(this.state.id);
+    });
   }
 
   setUser() {
     if (this.state.loading) {
-      return <UserLoader />
-    } else if (this.state.user == '' || this.state.id == '') {
-      return <Form onSubmit={this.onSubmit.bind(this)} />
+      return <UserLoader />;
+    } else if (this.state.user == "" || this.state.id == "") {
+      return <Form onSubmit={this.onSubmit.bind(this)} />;
     } else
       return (
         <UserBar
@@ -104,7 +104,7 @@ export default class NavBar extends Component {
           id={this.state.id}
           Logout={this.Logout}
         />
-      )
+      );
   }
 
   render() {
@@ -137,6 +137,6 @@ export default class NavBar extends Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -1,40 +1,40 @@
-import React from 'react'
-import moment from 'moment'
-import CommentList from './commentlist'
+import React from "react";
+import moment from "moment";
+import CommentList from "./commentlist";
 
 export default function Post(props) {
-  const { title, body, created: date, user_id } = props.post
-  let time = moment(date).fromNow()
+  const { title, body, created: date, user_id } = props.post;
+  let time = moment(date).fromNow();
   let anonymous =
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-  let link
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+  let link;
   user_id
     ? (link = `https://i.pravatar.cc/150?u=${user_id._id}`)
-    : (link = anonymous)
-  let name = user_id ? user_id.name : 'anonymous'
+    : (link = anonymous);
+  let name = user_id ? user_id.name : "anonymous";
 
   const deletePost = async e => {
-    e.preventDefault()
-    let url = `http://localhost:3000/post`
+    e.preventDefault();
+    let url = `https://polar-temple-62918.herokuapp.com/post`;
     await fetch(url, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         post_id: props.post._id
       }),
-      credentials: 'include'
+      credentials: "include"
     })
       .then(resp => {
-        if (resp.status != 200) throw 'not succesfully delete'
+        if (resp.status != 200) throw "not succesfully delete";
         // else return resp.json()
       })
       .catch(err => {
-        alert(err)
-      })
-    props.getPost()
-  }
+        alert(err);
+      });
+    props.getPost();
+  };
 
   return (
     <div className="media mb-3">
@@ -54,7 +54,7 @@ export default function Post(props) {
             <button
               className="btn btn-danger float-right p-2 btn-outline-danger "
               onClick={e => {
-                deletePost(e)
+                deletePost(e);
               }}
             >
               <small className="text-mute">✕</small>
@@ -72,5 +72,5 @@ export default function Post(props) {
         />
       </div>
     </div>
-  )
+  );
 }

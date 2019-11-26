@@ -1,28 +1,28 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class CommentForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      text: ''
-    }
+      text: ""
+    };
   }
 
   async onSubmit() {
-    event.preventDefault()
-    let url = `http://localhost:3000/comment/new`
+    event.preventDefault();
+    let url = `https://polar-temple-62918.herokuapp.com/comment/new`;
     await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         text: this.state.text,
         post_id: this.props.post_id
       }),
-      credentials: 'include'
-    })
-    this.props.getComment()
+      credentials: "include"
+    });
+    this.props.getComment();
   }
 
   render() {
@@ -38,8 +38,8 @@ export default class CommentForm extends Component {
               width="40"
               height="40"
               src={
-                this.props.login_user == 'anonymous'
-                  ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                this.props.login_user == "anonymous"
+                  ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                   : `https://i.pravatar.cc/150?u=${this.props.login_user}`
               }
             />
@@ -53,6 +53,6 @@ export default class CommentForm extends Component {
           />
         </div>
       </form>
-    )
+    );
   }
 }

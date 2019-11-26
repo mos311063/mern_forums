@@ -1,33 +1,33 @@
-import React, { Component } from 'react'
-import TextareaAutosize from 'react-autosize-textarea'
+import React, { Component } from "react";
+import TextareaAutosize from "react-autosize-textarea";
 export default class PostForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      title: '',
-      body: ''
-    }
+      title: "",
+      body: ""
+    };
   }
 
   async onSubmit() {
-    event.preventDefault()
-    let url = `http://localhost:3000/post/new`
+    event.preventDefault();
+    let url = `https://polar-temple-62918.herokuapp.com/post/new`;
     await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         title: this.state.title,
         body: this.state.body
       }),
-      credentials: 'include'
-    })
+      credentials: "include"
+    });
     this.setState({
-      title: '',
-      body: ''
-    })
-    this.props.getPost()
+      title: "",
+      body: ""
+    });
+    this.props.getPost();
   }
 
   render() {
@@ -43,16 +43,16 @@ export default class PostForm extends Component {
               width="40"
               height="40"
               src={
-                this.props.login_user == 'anonymous'
-                  ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                this.props.login_user == "anonymous"
+                  ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                   : `https://i.pravatar.cc/150?u=${this.props.login_user}`
               }
             />
           </span>
           <div className="media-body  mx-2 p-2 shadow-sm rounded bg-light border">
             <small className="form-text text-muted mb-1">
-              {' '}
-              create post ..{' '}
+              {" "}
+              create post ..{" "}
             </small>
             <TextareaAutosize
               maxRows={2}
@@ -80,6 +80,6 @@ export default class PostForm extends Component {
           </div>
         </div>
       </form>
-    )
+    );
   }
 }
