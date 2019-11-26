@@ -24,7 +24,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/react", "@babel/preset-env"]
+            presets: ["@babel/react"]
           }
         }
       }

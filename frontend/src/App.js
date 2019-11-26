@@ -17,8 +17,8 @@ class App extends Component {
           </Link>
         </div>
         <Switch>
-          <Route exact path="/mern_forums/" component={Home} />
-          <Route path="/mern_forums/register" component={Register} />
+          <Route exact path="/" component={Home} />
+          <Route path="/register" component={Register} />
         </Switch>
       </Router>
     );
