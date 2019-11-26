@@ -1,15 +1,16 @@
-const path = require('path')
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-
+const path = require("path");
+const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
-  mode: 'development',
-  entry: './src/App.js',
+  mode: "development",
+  entry: "./src/App.js",
   output: {
-    filename: 'main.js',
-    publicPath: 'dist'
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/"
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: "./build"
   },
   module: {
     rules: [
@@ -17,13 +18,16 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-react']
+            presets: ["@babel/preset-react"]
           }
         }
       }
     ]
   },
-  plugins: [new MomentLocalesPlugin()]
-}
+  plugins: [
+    new MomentLocalesPlugin(),
+    new HtmlWebpackPlugin({ template: path.resolve("./index.html") })
+  ]
+};
