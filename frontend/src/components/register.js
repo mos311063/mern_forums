@@ -1,34 +1,34 @@
-import React from 'react'
-import { Formik } from 'formik'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Formik } from "formik";
+import { Link } from "react-router-dom";
 
 const Form = props => (
   <>
-    <div class="row mt-5">
-      <div class="col-md-6 m-auto">
-        <div class="card card-body">
-          <h1 class="text-center mb-3">Register</h1>
+    <div className="row mt-5">
+      <div className="col-md-6 m-auto">
+        <div className="card card-body">
+          <h1 className="text-center mb-3">Register</h1>
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ email: "", password: "" }}
             validate={values => {
-              let errors = {}
+              let errors = {};
               if (!values.email) {
-                errors.email = 'Email is Required'
+                errors.email = "Email is Required";
               } else if (
                 !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
               ) {
-                errors.email = 'Invalid email address'
+                errors.email = "Invalid email address";
               }
-              if (values.password === '') {
-                errors.password = 'Password is required'
+              if (values.password === "") {
+                errors.password = "Password is required";
               }
-              return errors
+              return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                setSubmitting(false)
-                props.onSubmit(values)
-              }, 400)
+                setSubmitting(false);
+                props.onSubmit(values);
+              }, 400);
             }}
           >
             {({
@@ -41,7 +41,7 @@ const Form = props => (
               isSubmitting
             }) => (
               <form className="container p-2" onSubmit={handleSubmit}>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="email">Email</label>
                   <input
                     type="email"
@@ -82,13 +82,13 @@ const Form = props => (
               </form>
             )}
           </Formik>
-          <p class="lead mt-4">
+          <p className="lead mt-4">
             Have An Account? <Link to="/"> Home </Link>
           </p>
         </div>
       </div>
     </div>
   </>
-)
+);
 
-export default Form
+export default Form;

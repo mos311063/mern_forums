@@ -9,7 +9,8 @@ module.exports = {
   // mode: "development",
   entry: "./src/App.js",
   output: {
-    filename: "main.js"
+    filename: "main.js",
+    path: path.join(__dirname, "dist")
   },
   devServer: {
     contentBase: "dist",

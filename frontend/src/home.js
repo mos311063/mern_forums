@@ -11,27 +11,39 @@ export default class Home extends Component {
       user: "anonymous",
       loading: false
     };
+    this._isMounted = false;
     this.setSearch = this.setSearch.bind(this);
     this.setUser = this.setUser.bind(this);
     this.getPost = this.getPost.bind(this);
   }
   componentDidMount() {
+    this._isMounted = true;
     this.getPost();
   }
 
   async getPost() {
-    this.setState({ loading: true });
+    if (this._isMounted) {
+      this.setState({ loading: true });
+    }
     try {
       const res = await fetch(
         "https://polar-temple-62918.herokuapp.com/post/all"
       ).then(res => res.json());
-      this.setState({
-        posts: res,
-        loading: false
-      });
+      if (this._isMounted) {
+        this.setState({
+          posts: res,
+          loading: false
+        });
+      }
     } catch (err) {
-      this.setState({ loading: false });
+      if (this._isMounted) {
+        this.setState({ loading: false });
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   async setSearch(search) {

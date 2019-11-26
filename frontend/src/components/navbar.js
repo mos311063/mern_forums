@@ -12,6 +12,7 @@ export default class NavBar extends Component {
       id: "",
       loading: false
     };
+    this._isMounted = false;
     this.searchPost = this.searchPost.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.setUser = this.setUser.bind(this);
@@ -19,7 +20,10 @@ export default class NavBar extends Component {
   }
 
   componentDidMount() {
-    this.setState({ loading: true });
+    this._isMounted = true;
+    if (this._isMounted) {
+      this.setState({ loading: true });
+    }
     let url = `https://polar-temple-62918.herokuapp.com/user/session`;
     fetch(url, {
       method: "POST",
@@ -29,19 +33,24 @@ export default class NavBar extends Component {
         return resp.json();
       })
       .then(res => {
-        this.setState(
-          {
-            id: res.id || "",
-            name: res.name || "",
-            loading: false
-          },
-          () => {
-            this.props.setUser(this.state.id);
-          }
-        );
+        if (this._isMounted) {
+          this.setState(
+            {
+              id: res.id || "",
+              name: res.name || "",
+              loading: false
+            },
+            () => {
+              this.props.setUser(this.state.id);
+            }
+          );
+        }
       });
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   searchPost(search) {
     this.props.setSearch(search);
   }

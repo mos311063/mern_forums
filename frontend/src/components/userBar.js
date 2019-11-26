@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function UserBar(props) {
   return (
@@ -14,5 +14,5 @@ export default function UserBar(props) {
         <button className="m-3 btn btn-sm btn-danger">Log out</button>
       </small>
     </form>
-  )
+  );
 }
