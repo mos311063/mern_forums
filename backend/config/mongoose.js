@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-mongoose.set('useCreateIndex', true)
+const mongoose = require("mongoose");
+mongoose.set("useCreateIndex", true);
 
 module.exports = mongoose.connect(
   process.env.DB_CONNECTION,
@@ -8,6 +8,6 @@ module.exports = mongoose.connect(
     useNewUrlParser: true
   },
   err => {
-    err ? console.error(err) : console.log('Connection Status: Success')
+    err ? console.error(err) : console.log("Connection Status: Success");
   }
-)
+);
