@@ -1,21 +1,24 @@
 const path = require("path");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const htmlWebpackPlugin = new HtmlWebpackPlugin({
+  template: path.join(__dirname, "dist/index.html"),
+  filename: "./index.html"
+});
 module.exports = {
-  mode: "development",
+  // mode: "development",
   entry: "./src/App.js",
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "build"),
-    publicPath: "/"
+    filename: "main.js"
   },
   devServer: {
-    contentBase: "./build"
+    contentBase: "dist",
+    port: 8080
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -26,8 +29,8 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new MomentLocalesPlugin(),
-    new HtmlWebpackPlugin({ template: path.resolve("./index.html") })
-  ]
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
+  plugins: [new MomentLocalesPlugin(), htmlWebpackPlugin]
 };
